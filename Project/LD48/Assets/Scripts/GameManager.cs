@@ -31,15 +31,16 @@ public class GameManager : MonoBehaviour
     public GameObject menuObject;
     public GameObject gameUIObject;
     public FirstPersonController cm;
+    public GameObject TutorialText;
+    public GameObject menuPanel;
     bool playing;
 
     void Awake() {
-  
-    if (instance == null) {
-      instance = this;
-    } else {
-      Destroy(gameObject);
-    }
+        if (instance == null) {
+        instance = this;
+        } else {
+        Destroy(gameObject);
+        }
     }
 
 
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void StartGame(){
+    public void StartGame(){
         foreach (Interactable c in allInter)
         {
             c.TurnOff();
@@ -75,18 +76,19 @@ public class GameManager : MonoBehaviour
         prMods = 0f;
         teMods = 0f;
         enMods = 0f;
+        gameUIObject.SetActive(true);
     }
 
     public void ActivateMenu(){
         menuObject.SetActive(true);
         gameUIObject.SetActive(false);
+        menuPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         cm.enabled = false;
     }
 
     public void DeactivateMenu(){
-        gameUIObject.SetActive(true);
         menuObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -96,7 +98,8 @@ public class GameManager : MonoBehaviour
     public void PlayButton(){
         DeactivateMenu();
         cm.gameObject.transform.GetChild(0).transform.localRotation = Quaternion.Euler(0,0,0);
-        StartGame();
+        menuPanel.SetActive(false);
+        GetComponent<UIManager>().StartStory();
     }
 
     void Update()
@@ -142,13 +145,19 @@ public class GameManager : MonoBehaviour
         GetComponent<UIManager>().SetDepthText(depth);
 
         if(depth > 4000){
-            constantIndex = 0.0015f;
+            constantIndex = 0.015f;
         }else if(depthIndex > 1000)
         {
             constantIndex = 0.009f;
         }else if(depthIndex > 0)
         {
             constantIndex = 0.005f;
+        }
+
+        if(depth == 0){
+            TutorialText.SetActive(true);
+        }else{
+            TutorialText.SetActive(false);
         }
 
         if(preassure > 1f){
@@ -178,6 +187,7 @@ public class GameManager : MonoBehaviour
 
         if(depth >= 5000){
             Win();
+            depth = 0;
         }
 
         depthIndex = ((((Mathf.Abs(Mathf.Abs((temputure * 2f) - 1f)-1f))) + (Mathf.Abs(Mathf.Abs((preassure * 2f) - 1f)-1f)) + (Mathf.Abs(Mathf.Abs((energy * 2f) - 1f)-1f)))/3f) * 25f * Time.deltaTime;
@@ -188,11 +198,13 @@ public class GameManager : MonoBehaviour
 
     public void Die(){
         playing = false;
+        menuPanel.SetActive(true);
         ActivateMenu();
     }
 
     public void Win(){
         playing = false;
         ActivateMenu();
+        this.GetComponent<UIManager>().Win();
     }
 }
