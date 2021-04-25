@@ -1068,7 +1068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.01626587, y: -0.00021362305}
+  m_AnchoredPosition: {x: 0.016235352, y: -0.00021362305}
   m_SizeDelta: {x: 0.032470703, y: 0.00036621094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &477651827 stripped
@@ -1322,7 +1322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.01626587, y: -0.00021362305}
+  m_AnchoredPosition: {x: 0.016235352, y: -0.00021362305}
   m_SizeDelta: {x: 0.032470703, y: 0.00036621094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &550003586
@@ -4511,7 +4511,7 @@ MonoBehaviour:
   gameUIObject: {fileID: 1093869717}
   cm: {fileID: 1255396251}
   TutorialText: {fileID: 917843817}
-  menuPanel: {fileID: 0}
+  menuPanel: {fileID: 550003584}
 --- !u!4 &2046814926
 Transform:
   m_ObjectHideFlags: 0
